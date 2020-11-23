@@ -1,0 +1,27 @@
+{
+    "name": "styde/phpunit",
+    "description": "creacion de componentes para php y laravel",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alfredo",
+            "email": "alfaradayepez@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Styde\\":"src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\":"tests/"
+        }
+    },
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^9",
+        "mockery/mockery": "^1.4"
+    }
+}

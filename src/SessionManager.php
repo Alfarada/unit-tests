@@ -3,27 +3,33 @@
 
 namespace Styde;
 
+use Styde\SessionFileDriver as Driver;
+
 class SessionManager
 {
+    protected $driver;
+    protected $loaded = false;
+    protected $data = array();
 
-    protected static $loaded = false;
-    protected static $data = array();
-
-    protected static function load()
-    {
-        if (static::$loaded) return;
-
-        static::$data = SessionFileDriver::load();
-
-        static::$loaded = true;
+    public function __construct(Driver $driver) {
+        $this->driver = $driver;
     }
 
-    public static function get($key)
+    protected function load()
     {
-        static::load();
+        if ($this->loaded) return;
 
-        return isset(static::$data[$key])
-            ? static::$data[$key]
+        $this->data = $this->driver->load();
+
+        $this->loaded = true;
+    }
+
+    public function get($key)
+    {
+        $this->load();
+
+        return isset($this->data[$key])
+            ? $this->data[$key]
             : null;
     }
 

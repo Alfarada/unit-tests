@@ -4,7 +4,7 @@ namespace Styde;
 
 class SessionFileDriver implements SessionDriveInterface
 {
-    public function load()
+    public function load(): array
     {
         $file = __DIR__ . '/../storage/session/session.json';
 

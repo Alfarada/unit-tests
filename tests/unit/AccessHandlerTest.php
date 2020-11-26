@@ -2,21 +2,22 @@
 
 namespace Test;
 
+use Mockery;
 use PHPUnit\Framework\TestCase;
 use Styde\AccessHandler as Access;
-use Styde\Authenticator as Auth;
-use Styde\SessionArrayDriver;
-use Styde\SessionFileDriver as Driver;
-use Styde\SessionManager as Session;
-use Styde\Stubs\AuthenticatorStub;
+use Styde\Authenticator;
+use Styde\User;
 
 class AccessHandlerTest extends TestCase
-{
+{   
+    public function tearDown(): void
+    {
+        Mockery::close();
+    }
 
     public function test_grant_access()
-    {   
-        $auth = new AuthenticatorStub();
-        $access = new Access($auth);
+    {  
+        $access = new Access($this->getAuthenticatorMock());
 
         $this->assertTrue(
             $access->check('admin')
@@ -25,12 +26,29 @@ class AccessHandlerTest extends TestCase
 
     public function test_deny_access()
     {   
-        $auth = new AuthenticatorStub();
-        $access = new Access($auth);
+        $access = new Access($this->getAuthenticatorMock());
 
         $this->assertFalse(
             $access->check('editor')
         );
+    }
+
+    protected function getAuthenticatorMock()
+    {
+         
+        $user = Mockery::mock(User::class);
+        $user->role = 'admin';
+
+        $auth = Mockery::mock(Authenticator::class);
+        $auth->shouldReceive('check')
+            ->once()
+            ->andReturn(true);
+
+        $auth->shouldReceive('user')
+            ->once()
+            ->andReturn($user);
+
+        return $auth;
     }
 
 }

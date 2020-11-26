@@ -4,5 +4,5 @@ namespace Styde;
 
 interface SessionDriveInterface  
 {
-    public function load();
+    public function load(): array;
 }

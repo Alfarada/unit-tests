@@ -10,7 +10,7 @@ class SessionArrayDriver implements SessionDriveInterface
         $this->data = $data;
     }
 
-    public function load()
+    public function load(): array
     {
         return $this->data;
     }

@@ -3,15 +3,13 @@
 
 namespace Styde;
 
-use Styde\SessionFileDriver as Driver;
-
 class SessionManager
 {
     protected $driver;
     protected $loaded = false;
     protected $data = array();
 
-    public function __construct(Driver $driver) {
+    public function __construct(SessionDriveInterface $driver) {
         $this->driver = $driver;
     }
 

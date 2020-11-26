@@ -4,7 +4,7 @@ namespace Styde;
 
 use Styde\SessionManager as Session;
 
-class Authenticator
+class Authenticator  implements AuthenticatorInterface
 {
     protected $session;
     protected $user;
@@ -14,12 +14,12 @@ class Authenticator
         $this->session = $session;
     }
 
-    public function check()
+    public function check(): bool
     {
         return $this->user() != null;
     }
 
-    public function user()
+    public function user(): User
     {
         if ($this->user != null) {
             return $this->user;

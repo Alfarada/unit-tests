@@ -1,5 +1,9 @@
-<?php 
+<?php
 
-require(__DIR__.'/../bootstrap/start.php');
+require(__DIR__ . '/../bootstrap/start.php');
 
-view('students', []);
+if (!$access->check('student')) {
+    abort404();
+}
+
+view('students', compact('access'));

@@ -1,5 +1,21 @@
-<?php 
+<?php
 
-require(__DIR__.'/../bootstrap/start.php');
+use Styde\{AccessHandler, Authenticator, SessionArrayDriver, SessionManager};
 
-view('teachers', []);
+require(__DIR__ . '/../bootstrap/start.php');
+
+
+
+function teacherController()
+{   
+    global $access;
+    
+    if (!$access->check('teacher')) {
+        abort404();
+    }
+    
+    view('teachers', compact('access'));
+    
+}
+
+teacherController(); 

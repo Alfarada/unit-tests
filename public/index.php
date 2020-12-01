@@ -1,5 +1,8 @@
 <?php
 
-require(__DIR__.'/../bootstrap/start.php');
+use Styde\{AccessHandler, Authenticator, SessionArrayDriver, SessionManager};
 
-view('index', []);
+require(__DIR__ . '/../bootstrap/start.php');
+
+
+view('index', compact('access'));

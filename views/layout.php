@@ -45,18 +45,17 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
-                
-                <?php //if (Access::check(['student'])): ?> 
+                <?php if ($access->check(['student'])): ?> 
                 <li class="nav-item active">
                     <a class="nav-link" href="students.php">Students</a>
                 </li>
-                <?php //endif; ?>
+                <?php endif; ?>
                 
-                <?php //if (Access::check(['teacher'])): ?> 
+                <?php if ($access->check(['teacher'])): ?> 
                 <li class="nav-item active">
                     <a class="nav-link" href="teachers.php">Teachers</a>
                 </li>
-                <?php //endif;?>
+                <?php endif;?>
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">

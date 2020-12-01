@@ -4,9 +4,7 @@ namespace Test;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use Styde\AccessHandler as Access;
-use Styde\Authenticator;
-use Styde\User;
+use Styde\{AccessHandler as Access, Authenticator, User};
 
 class AccessHandlerTest extends TestCase
 {   

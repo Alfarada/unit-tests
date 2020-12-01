@@ -26,9 +26,7 @@ class SessionManager
     {
         $this->load();
 
-        return isset($this->data[$key])
-            ? $this->data[$key]
-            : null;
+        return $this->data[$key] ?? null;
     }
 
 } 

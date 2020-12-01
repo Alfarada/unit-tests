@@ -13,8 +13,6 @@ class User
 
     public function __get($var)
     {
-        return isset($this->attributes[$var])
-            ? $this->attributes[$var]
-            : null;
+        return $this->attributes[$var] ?? null;
     }
 } 

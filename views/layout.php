@@ -47,7 +47,7 @@
                 </li>
                 <?php if ($access->check(['student'])): ?> 
                 <li class="nav-item active">
-                    <a class="nav-link" href="students.php">Students</a>
+                    <a class="" href="students.php">Students</a>
                 </li>
                 <?php endif; ?>
                 

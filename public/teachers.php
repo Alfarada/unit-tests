@@ -1,15 +1,13 @@
 <?php
 
-use Styde\{AccessHandler, Authenticator, SessionArrayDriver, SessionManager};
+use Styde\{Container};
 
 require(__DIR__ . '/../bootstrap/start.php');
 
-
-
 function teacherController()
 {   
-    global $access;
-    
+    $access = Container::getInstance()->access();
+      
     if (!$access->check('teacher')) {
         abort404();
     }

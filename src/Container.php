@@ -2,64 +2,43 @@
 
 namespace Styde;
 
+use Closure;
+
 class Container
-{   
-    protected static $container;
+{
+    protected $shared = [];
+    protected $bindings = [];
 
-    protected $shared = array();
-    
-    public static function getInstance()
+    public function bind($name, $resolver)
     {
-         if (static::$container == null) {
-            static::$container = new container;
-         }
-
-         return static::$container;
+        $this->bindings[$name] = [
+            'resolver' => $resolver
+        ];
     }
 
-    public function setContainer(Container $container)
+    public function instance($name, $object)
     {
-        static::$container = $container;
+        $this->shared[$name] = $object;
     }
 
-    public function clearContainer()
+    public function make($name)
     {
-        static::$container = null;
-    }
 
-    public function session()
-    {   
-        if (isset ($this->shared['session'])) {
-            return $this->shared['session'];
+        if (isset($this->shared[$name]))
+            
+            return $this->shared[$name];
+
+        $resolver = $this->bindings[$name]['resolver'];
+
+        if ($resolver instanceof Closure) {
+
+            $object = $resolver($this);
+
+        } else {
+
+            $object = new $resolver;
         }
 
-        $data = array(
-            'user_data' => array(
-                'name' => 'Alfredo',
-                'role' => 'student'
-            )
-        );
-
-        $driver = new SessionArrayDriver($data);
-
-        return new SessionManager($driver);
-    }
-
-    public function auth()
-    {   
-        if (isset ($this->shared['auth'])) {
-            return $this->shared['auth'];
-        }
-
-        return $this->shared['auth'] = new Authenticator($this->session());
-    }
-
-    public function access()
-    {    
-        if (isset ($this->shared['access'])) {
-            return $this->shared['access'];
-        }
-
-        return $this->shared['access'] = new AccessHandler($this->auth());
+        return $object;
     }
 }
